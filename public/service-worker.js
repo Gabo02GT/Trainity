@@ -7,9 +7,13 @@ const urlsToCache = [
 
 // Instalación del service worker
 self.addEventListener('install', event => {
+  console.log('Service Worker: Instalando...');
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
+      console.log('Cache abierto');
       return cache.addAll(urlsToCache);
+    }).catch(error => {
+      console.error('Error en instalación:', error);
     })
   );
   self.skipWaiting();
@@ -17,11 +21,13 @@ self.addEventListener('install', event => {
 
 // Activación del service worker
 self.addEventListener('activate', event => {
+  console.log('Service Worker: Activando...');
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
+            console.log('Eliminando cache antiguo:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -31,7 +37,7 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Interceptar solicitudes
+// Interceptar solicitudes con estrategia Network First para mejor experiencia
 self.addEventListener('fetch', event => {
   // Solo manejar solicitudes GET
   if (event.request.method !== 'GET') {
@@ -39,19 +45,15 @@ self.addEventListener('fetch', event => {
   }
 
   event.respondWith(
-    caches.match(event.request).then(response => {
-      // Retornar del cache si existe
-      if (response) {
-        return response;
-      }
-
-      return fetch(event.request).then(response => {
+    // Primero intenta obtener de la red
+    fetch(event.request)
+      .then(response => {
         // No cachear respuestas que no sean éxito
-        if (!response || response.status !== 200 || response.type !== 'basic') {
+        if (!response || response.status !== 200 || response.type === 'error') {
           return response;
         }
 
-        // Clonar la respuesta
+        // Clonar la respuesta para cachearla
         const responseToCache = response.clone();
 
         caches.open(CACHE_NAME).then(cache => {
@@ -59,10 +61,13 @@ self.addEventListener('fetch', event => {
         });
 
         return response;
-      }).catch(() => {
-        // Retornar una página offline si existe
-        return caches.match('/');
-      });
-    })
+      })
+      .catch(() => {
+        // Si falla la red, usar el cache
+        return caches.match(event.request)
+          .then(cachedResponse => {
+            return cachedResponse || caches.match('/');
+          });
+      })
   );
 });

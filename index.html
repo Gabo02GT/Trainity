@@ -2,15 +2,15 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Trainity - Mi primera Progressive Web App" />
-    <meta name="theme-color" content="#3f51b5" />
+    <meta name="theme-color" content="#1a3a52" />
+    
+    <!-- Apple Mobile Web App Settings -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Trainity" />
-    
-    <!-- Iconos para Apple -->
-    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/images/icon-192-maskable.png" />
     
     <!-- Manifest PWA -->
     <link rel="manifest" href="/manifest.json" />
@@ -18,10 +18,15 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     
+    <!-- PWA Mobile Web App Meta -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Trainity" />
+    
     <title>Trainity - Mi Primera PWA</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
   </body>
 </html>
