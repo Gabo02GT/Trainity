@@ -1,8 +1,8 @@
 .auth-container {
   min-height: 100vh;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  justify-content: flex-end;
   background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 50%, #7a8fa3 100%);
   padding: 2rem;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -43,6 +43,8 @@
   z-index: 1;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
+  margin-left: auto;
+  margin-right: 2rem;
 }
 
 @keyframes slideUpScale {
@@ -400,13 +402,16 @@
 /* TABLET (768px - 1279px) */
 @media (max-width: 1279px) {
   .auth-container {
+    grid-template-columns: 1fr;
     padding: 1.5rem;
-    justify-content: center;
+    justify-items: center;
   }
 
   .auth-card {
     padding: 2.5rem;
     max-width: 450px;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .auth-card h1 {
@@ -423,14 +428,17 @@
 /* TABLET SMALLER (768px) */
 @media (max-width: 768px) {
   .auth-container {
+    grid-template-columns: 1fr;
     padding: 1.5rem;
-    justify-content: center;
+    justify-items: center;
   }
 
   .auth-card {
     padding: 2rem;
     border-radius: 16px;
     max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .auth-card h1 {
@@ -474,14 +482,17 @@
 /* MOBILE (480px - 767px) */
 @media (max-width: 480px) {
   .auth-container {
+    grid-template-columns: 1fr;
     padding: 1rem;
-    justify-content: center;
+    justify-items: center;
   }
 
   .auth-card {
     padding: 1.8rem;
     border-radius: 16px;
     max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .auth-card h1 {
@@ -560,13 +571,16 @@
 /* SMALL PHONE (360px - 479px) */
 @media (max-width: 360px) {
   .auth-container {
+    grid-template-columns: 1fr;
     padding: 0.75rem;
-    justify-content: center;
+    justify-items: center;
   }
 
   .auth-card {
     padding: 1.5rem;
     border-radius: 14px;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .auth-card h1 {
