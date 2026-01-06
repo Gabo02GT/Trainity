@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Login.css';
 
 function Register() {
@@ -13,6 +14,11 @@ function Register() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const { signup } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -22,19 +28,44 @@ function Register() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validación básica
+    
+    // Validaciones
     if (formData.password !== formData.confirmPassword) {
-      alert('Las contraseñas no coinciden');
+      setError('Las contraseñas no coinciden');
       return;
     }
+    
+    if (formData.password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres');
+      return;
+    }
+    
     if (!formData.terms) {
-      alert('Debes aceptar los términos y condiciones');
+      setError('Debes aceptar los términos y condiciones');
       return;
     }
-    // Lógica de registro se implementará con Firebase después
-    console.log('Register:', formData);
+    
+    try {
+      setError('');
+      setLoading(true);
+      await signup(formData.email, formData.password, formData.name);
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Error al registrarse:', error);
+      if (error.code === 'auth/email-already-in-use') {
+        setError('Este correo ya está registrado');
+      } else if (error.code === 'auth/invalid-email') {
+        setError('Correo electrónico inválido');
+      } else if (error.code === 'auth/weak-password') {
+        setError('La contraseña es muy débil');
+      } else {
+        setError('Error al crear la cuenta. Intenta de nuevo');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -58,6 +89,14 @@ function Register() {
 
         {/* Formulario de Registro */}
         <form className="auth-form slide-up" onSubmit={handleSubmit}>
+          {/* Mensaje de error */}
+          {error && (
+            <div className="error-message">
+              <span>⚠️</span>
+              <span>{error}</span>
+            </div>
+          )}
+
           {/* Campo Nombre */}
           <div className="form-group">
             <label className="form-label">
@@ -176,9 +215,9 @@ function Register() {
           </div>
 
           {/* Botón Submit */}
-          <button type="submit" className="auth-button">
-            <span>Crear Cuenta</span>
-            <span className="button-icon">✨</span>
+          <button type="submit" className="auth-button" disabled={loading}>
+            <span>{loading ? 'Creando cuenta...' : 'Crear Cuenta'}</span>
+            {!loading && <span className="button-icon">✨</span>}
           </button>
 
           {/* Link a Login */}
