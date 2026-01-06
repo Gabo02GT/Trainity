@@ -2,8 +2,6 @@ import { createContext, useState, useEffect } from 'react';
 import { 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
   sendEmailVerification
@@ -55,19 +53,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Iniciar sesión con Google
-  const loginWithGoogle = async () => {
-    setError(null);
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      return result.user;
-    } catch (err) {
-      setError(err.message);
-      throw err;
-    }
-  };
-
   // Cerrar sesión
   const logout = async () => {
     setError(null);
@@ -86,7 +71,6 @@ export const AuthProvider = ({ children }) => {
     error,
     register,
     login,
-    loginWithGoogle,
     logout,
     isAuthenticated: !!user,
     isEmailVerified: user?.emailVerified

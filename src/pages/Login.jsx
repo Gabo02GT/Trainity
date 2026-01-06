@@ -10,7 +10,7 @@ export const Login = () => {
   const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
-  const { login, loginWithGoogle } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -90,20 +90,6 @@ export const Login = () => {
             {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
           </button>
         </form>
-
-        <div className="divider">O</div>
-
-        <button 
-          type="button"
-          className="btn btn-google"
-          onClick={handleGoogleLogin}
-          disabled={loading}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-          </svg>
-          Continuar con Google
-        </button>
 
         <p className="auth-footer">
           ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>

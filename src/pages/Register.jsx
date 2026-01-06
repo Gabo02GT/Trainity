@@ -12,7 +12,7 @@ export const Register = () => {
   const [success, setSuccess] = useState(false);
   
   const navigate = useNavigate();
-  const { register, loginWithGoogle } = useContext(AuthContext);
+  const { register } = useContext(AuthContext);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -142,20 +142,6 @@ export const Register = () => {
                 {loading ? 'Registrando...' : 'Registrarse'}
               </button>
             </form>
-
-            <div className="divider">O</div>
-
-            <button 
-              type="button"
-              className="btn btn-google"
-              onClick={handleGoogleRegister}
-              disabled={loading}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-              </svg>
-              Registrarse con Google
-            </button>
 
             <p className="auth-footer">
               ¿Ya tienes cuenta? <Link to="/login">Inicia sesión aquí</Link>
