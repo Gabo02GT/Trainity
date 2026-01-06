@@ -5,7 +5,7 @@ function AddRoutineModal({ isOpen, onClose, onSave, editData = null }) {
   const [formData, setFormData] = useState(editData || {
     name: '',
     day: '',
-    exercises: [{ name: '', sets: '', reps: '', weight: '', rest: '' }]
+    exercises: [{ name: '', sets: '', reps: '' }]
   });
 
   const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
@@ -23,7 +23,7 @@ function AddRoutineModal({ isOpen, onClose, onSave, editData = null }) {
   const addExercise = () => {
     setFormData({
       ...formData,
-      exercises: [...formData.exercises, { name: '', sets: '', reps: '', weight: '', rest: '' }]
+      exercises: [...formData.exercises, { name: '', sets: '', reps: '' }]
     });
   };
 
@@ -117,7 +117,7 @@ function AddRoutineModal({ isOpen, onClose, onSave, editData = null }) {
                   </div>
 
                   <div className="stat-input">
-                    <label>Reps</label>
+                    <label>Repeticiones</label>
                     <input
                       type="number"
                       value={exercise.reps}
@@ -125,30 +125,6 @@ function AddRoutineModal({ isOpen, onClose, onSave, editData = null }) {
                       placeholder="12"
                       required
                       min="1"
-                    />
-                  </div>
-
-                  <div className="stat-input">
-                    <label>Peso (kg)</label>
-                    <input
-                      type="number"
-                      value={exercise.weight}
-                      onChange={(e) => handleExerciseChange(index, 'weight', e.target.value)}
-                      placeholder="20"
-                      step="0.5"
-                      min="0"
-                    />
-                  </div>
-
-                  <div className="stat-input">
-                    <label>Descanso (seg)</label>
-                    <input
-                      type="number"
-                      value={exercise.rest}
-                      onChange={(e) => handleExerciseChange(index, 'rest', e.target.value)}
-                      placeholder="60"
-                      required
-                      min="0"
                     />
                   </div>
                 </div>

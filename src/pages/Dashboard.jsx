@@ -183,16 +183,6 @@ function Dashboard() {
                           <span className="label">Reps:</span>
                           <span className="value">{exercise.reps}</span>
                         </div>
-                        {exercise.weight && (
-                          <div className="detail-badge">
-                            <span className="label">Peso:</span>
-                            <span className="value">{exercise.weight} kg</span>
-                          </div>
-                        )}
-                        <div className="detail-badge">
-                          <span className="label">Descanso:</span>
-                          <span className="value">{exercise.rest}s</span>
-                        </div>
                       </div>
                     </div>
                   ))}
