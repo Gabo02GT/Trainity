@@ -7,7 +7,10 @@ function App() {
   return (
     <>
       <div className="container">
-        <h1>🚀 Trainity</h1>
+        <div className="logo-section">
+          <img src="/images/icon-512-maskable.png" alt="Trainity GYM Logo" className="app-logo" />
+          <h1>Trainity - GYM</h1>
+        </div>
         <div className="pwa-message">
           <h2>Esta es mi primera PWA</h2>
           <p>Puedes instalar esta aplicación en tu dispositivo</p>

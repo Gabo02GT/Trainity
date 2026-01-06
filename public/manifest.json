@@ -1,7 +1,7 @@
 {
-  "name": "Trainity - Mi Primera PWA",
-  "short_name": "Trainity",
-  "description": "Esta es mi primera Progressive Web App",
+  "name": "Trainity - GYM",
+  "short_name": "Trainity GYM",
+  "description": "Trainity - Tu gimnasio en tu bolsillo",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

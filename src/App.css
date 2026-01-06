@@ -13,13 +13,36 @@
   width: 100%;
 }
 
+.logo-section {
+  margin-bottom: 2rem;
+}
+
+.app-logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  object-fit: cover;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .pwa-message {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 2rem;
-  border-radius: 10px;
+  border-radius: 15px;
   margin: 2rem 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .pwa-message h2 {
@@ -33,21 +56,12 @@
   margin: 0.5rem 0;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 .card {
   padding: 2em;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #f5f5f5;
   margin-top: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 button {
@@ -80,6 +94,12 @@ button:active {
     font-size: 2rem;
   }
 
+  .app-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 24px;
+  }
+
   .pwa-message {
     padding: 1.5rem;
   }
@@ -92,3 +112,4 @@ button:active {
     font-size: 1rem;
   }
 }
+
