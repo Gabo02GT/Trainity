@@ -1,15 +1,37 @@
 {
-  "name": "Trainity - GYM",
-  "short_name": "Trainity GYM",
-  "description": "Trainity - Tu gimnasio en tu bolsillo",
+  "name": "Trainity - Tu Gimnasio en tu Bolsillo",
+  "short_name": "Trainity",
+  "description": "Trainity - Aplicación de entrenamiento personal en formato PWA. Tu gimnasio en tu bolsillo.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1a3a52",
   "orientation": "portrait-primary",
+  "dir": "ltr",
+  "lang": "es-ES",
   "prefer_related_applications": false,
+  "screenshots": [
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
   "icons": [
+    {
+      "src": "/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/images/icon-192-maskable.png",
       "sizes": "192x192",
@@ -17,10 +39,45 @@
       "purpose": "maskable"
     },
     {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "/images/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "categories": ["fitness", "health", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Iniciar Sesión",
+      "short_name": "Login",
+      "description": "Ir directamente a la página de inicio de sesión",
+      "url": "/login",
+      "icons": [
+        {
+          "src": "/images/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Crear Cuenta",
+      "short_name": "Registro",
+      "description": "Registrarse en Trainity",
+      "url": "/register",
+      "icons": [
+        {
+          "src": "/images/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

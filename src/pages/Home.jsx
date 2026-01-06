@@ -1,98 +1,121 @@
-import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/AuthContext'
+import { useState, useEffect } from 'react';
+import './Home.css';
 
 function Home() {
-  const { user, logout } = useContext(AuthContext)
-  const navigate = useNavigate()
-  const [count, setCount] = useState(0)
+  const [isVisible, setIsVisible] = useState(false);
 
-  const handleLogout = async () => {
-    try {
-      await logout()
-      navigate('/login')
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error)
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  const features = [
+    {
+      icon: '📊',
+      title: 'Monitoreo en Tiempo Real',
+      description: 'Sigue tu progreso diario y visualiza tus estadísticas'
+    },
+    {
+      icon: '💪',
+      title: 'Rutinas Personalizadas',
+      description: 'Crea y gestiona tus rutinas de entrenamiento'
+    },
+    {
+      icon: '🎯',
+      title: 'Objetivos Claros',
+      description: 'Define metas y alcanza tus objetivos de fitness'
+    },
+    {
+      icon: '📱',
+      title: 'Acceso Offline',
+      description: 'Usa la app sin conexión, sincroniza después'
     }
-  }
+  ];
 
   return (
-    <div className="min-h-screen gradient-bg relative overflow-hidden">
-      {/* Fondo animado */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl animate-pulse"></div>
-      </div>
-
-      {/* Header */}
-      <div className="relative z-10 px-4 py-6 sm:px-8">
-        <div className="max-w-7xl mx-auto flex items-center justify-between animate-slideDown">
-          <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-[#1a3a52] to-[#2d5a7b] bg-clip-text text-transparent">
-              Bienvenido a Trainity - GYM
-            </h1>
-            <p className="text-[#7a8fa3] font-semibold mt-2">{user?.email}</p>
-            {user?.emailVerified && (
-              <span className="inline-block mt-2 px-3 py-1 bg-green-100 text-green-900 text-sm font-semibold rounded-full">
-                ✓ Email verificado
-              </span>
-            )}
+    <div className="home-container">
+      {/* Hero Section */}
+      <section className={`hero-section ${isVisible ? 'fade-in' : ''}`}>
+        <div className="hero-content">
+          <div className="logo-container pulse">
+            <img src="/images/icon-192.png" alt="Gym PWA" className="hero-logo" />
           </div>
-          <button 
-            onClick={handleLogout}
-            className="btn-primary hover:shadow-lg"
-          >
-            Cerrar sesión
-          </button>
-        </div>
-      </div>
-
-      {/* Contenido Principal */}
-      <div className="relative z-10 px-4 py-8 sm:px-8">
-        <div className="max-w-7xl mx-auto space-y-8">
-          
-          {/* Sección Logo */}
-          <div className="card flex flex-col items-center text-center animate-slideUp">
-            <img 
-              src="/images/icon-512-maskable.png" 
-              alt="Trainity GYM Logo" 
-              className="w-40 h-40 rounded-3xl shadow-lg border-4 border-[#1a3a52] hover:scale-110 hover:rotate-[-5deg] transition-all duration-300 animate-rotateIn"
-            />
-            <h2 className="text-3xl font-bold text-[#1a3a52] mt-6">Tu gimnasio en tu bolsillo</h2>
-          </div>
-
-          {/* Sección PWA */}
-          <div className="card animate-slideInUp" style={{ animationDelay: '0.2s' }}>
-            <h3 className="text-2xl font-bold text-[#1a3a52] mb-4">Esta es mi primera PWA</h3>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-[#1a3a52]/10 to-[#2d5a7b]/10 rounded-lg">
-                <span className="text-2xl">✓</span>
-                <p className="text-[#7a8fa3] font-semibold">Instalable en tu dispositivo</p>
-              </div>
-              <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-[#1a3a52]/10 to-[#2d5a7b]/10 rounded-lg">
-                <span className="text-2xl">✓</span>
-                <p className="text-[#7a8fa3] font-semibold">Funciona sin conexión</p>
-              </div>
-              <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-[#1a3a52]/10 to-[#2d5a7b]/10 rounded-lg">
-                <span className="text-2xl">✓</span>
-                <p className="text-[#7a8fa3] font-semibold">Acceso rápido desde pantalla de inicio</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Sección Contador */}
-          <div className="card text-center animate-slideInUp" style={{ animationDelay: '0.4s' }}>
-            <button 
-              onClick={() => setCount((count) => count + 1)}
-              className="btn-primary text-lg py-4 px-8"
-            >
-              Contador: {count}
+          <h1 className="hero-title slide-up">
+            <span className="gradient-text">Gym Progress</span>
+            <span className="subtitle">Tracker</span>
+          </h1>
+          <p className="hero-description slide-up-delay">
+            Tu <strong>Progressive Web App</strong> para monitorear y llevar el control completo de tu progreso en las rutinas del gimnasio
+          </p>
+          <div className="hero-buttons slide-up-delay-2">
+            <button className="btn-primary glow">
+              <span>Comenzar Ahora</span>
+              <span className="arrow">→</span>
+            </button>
+            <button className="btn-secondary">
+              Ver Demo
             </button>
           </div>
         </div>
-      </div>
+        
+        {/* Animated background elements */}
+        <div className="floating-shapes">
+          <div className="shape shape-1"></div>
+          <div className="shape shape-2"></div>
+          <div className="shape shape-3"></div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="features-section">
+        <h2 className="section-title">¿Por qué elegirnos?</h2>
+        <div className="features-grid">
+          {features.map((feature, index) => (
+            <div 
+              key={index} 
+              className={`feature-card ${isVisible ? 'fade-in' : ''}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className="feature-icon bounce">{feature.icon}</div>
+              <h3 className="feature-title">{feature.title}</h3>
+              <p className="feature-description">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="stats-section">
+        <div className="stats-container">
+          <div className="stat-item">
+            <div className="stat-number counter">1000+</div>
+            <div className="stat-label">Usuarios Activos</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-number counter">50K+</div>
+            <div className="stat-label">Entrenamientos</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-number counter">98%</div>
+            <div className="stat-label">Satisfacción</div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="cta-section">
+        <div className="cta-content">
+          <h2 className="cta-title">¿Listo para transformar tu entrenamiento?</h2>
+          <p className="cta-description">
+            Comienza hoy y descubre cómo nuestra PWA puede ayudarte a alcanzar tus metas
+          </p>
+          <button className="btn-cta pulse-button">
+            <span>Únete Ahora</span>
+            <span className="sparkle">✨</span>
+          </button>
+        </div>
+      </section>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
