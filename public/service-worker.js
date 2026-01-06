@@ -65,16 +65,22 @@ self.addEventListener('fetch', event => {
     // Cache First para assets estáticos
     event.respondWith(
       caches.match(request).then(cachedResponse => {
-        return cachedResponse || fetch(request).then(response => {
-          if (response && response.status === 200 && response.type !== 'error') {
-            // Clonar ANTES de usar la respuesta
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(request, response.clone());
-            });
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        
+        return fetch(request).then(response => {
+          if (!response || response.status !== 200 || response.type === 'error') {
+            return response;
           }
+
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(request, responseClone);
+          });
+
           return response;
         }).catch(() => {
-          // Fallback si no hay conexión
           return caches.match('/');
         });
       })
@@ -84,16 +90,13 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(request)
         .then(response => {
-          // No cachear respuestas que no sean éxito
           if (!response || response.status !== 200 || response.type === 'error') {
             return response;
           }
 
-          // Clonar ANTES de usar la respuesta
-          const responseToCache = response.clone();
-
+          const responseClone = response.clone();
           caches.open(CACHE_NAME).then(cache => {
-            cache.put(request, responseToCache);
+            cache.put(request, responseClone);
           });
 
           return response;
