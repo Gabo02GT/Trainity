@@ -1,28 +1,48 @@
-import { useState } from 'react'
+import { useContext } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { AuthContext } from './context/AuthContext'
+import { Login } from './pages/Login'
+import { Register } from './pages/Register'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import Home from './pages/Home'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { isAuthenticated, loading } = useContext(AuthContext)
+
+  if (loading) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      }}>
+        <div style={{ color: 'white', fontSize: '1.2rem' }}>Cargando...</div>
+      </div>
+    )
+  }
 
   return (
-    <>
-      <div className="container">
-        <div className="logo-section">
-          <img src="/images/icon-512-maskable.png" alt="Trainity GYM Logo" className="app-logo" />
-          <h1>Trainity - GYM</h1>
-        </div>
-        <div className="pwa-message">
-          <h2>Esta es mi primera PWA</h2>
-          <p>Puedes instalar esta aplicación en tu dispositivo</p>
-          <p>Click en el ícono de instalar en la barra de direcciones</p>
-        </div>
-        <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
-            Contador: {count}
-          </button>
-        </div>
-      </div>
-    </>
+    <Routes>
+      {/* Rutas públicas */}
+      <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
+      <Route path="/register" element={isAuthenticated ? <Navigate to="/" /> : <Register />} />
+
+      {/* Rutas protegidas */}
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Ruta por defecto */}
+      <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} />} />
+    </Routes>
   )
 }
 
