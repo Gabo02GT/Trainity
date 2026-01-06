@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Home.css';
 
 function Home() {
@@ -10,24 +11,24 @@ function Home() {
 
   const features = [
     {
-      icon: '📊',
-      title: 'Monitoreo en Tiempo Real',
-      description: 'Sigue tu progreso diario y visualiza tus estadísticas'
+      icon: '�',
+      title: 'Registro Completo',
+      description: 'Registra ejercicios, pesos, series y descansos de forma detallada'
     },
     {
       icon: '💪',
-      title: 'Rutinas Personalizadas',
-      description: 'Crea y gestiona tus rutinas de entrenamiento'
+      title: 'Rutinas Inteligentes',
+      description: 'Crea y organiza tus rutinas de entrenamiento personalizadas'
     },
     {
-      icon: '🎯',
-      title: 'Objetivos Claros',
-      description: 'Define metas y alcanza tus objetivos de fitness'
+      icon: '📊',
+      title: 'Seguimiento de Progreso',
+      description: 'Mide tu evolución día a día con estadísticas claras'
     },
     {
-      icon: '📱',
-      title: 'Acceso Offline',
-      description: 'Usa la app sin conexión, sincroniza después'
+      icon: '⚡',
+      title: 'Interfaz Eficiente',
+      description: 'Diseño moderno enfocado en el rendimiento y la productividad'
     }
   ];
 
@@ -40,20 +41,19 @@ function Home() {
             <img src="/images/icon-192.png" alt="Gym PWA" className="hero-logo" />
           </div>
           <h1 className="hero-title slide-up">
-            <span className="gradient-text">Gym Progress</span>
-            <span className="subtitle">Tracker</span>
+            <span className="gradient-text">Trainity</span>
           </h1>
           <p className="hero-description slide-up-delay">
-            Tu <strong>Progressive Web App</strong> para monitorear y llevar el control completo de tu progreso en las rutinas del gimnasio
+            Una aplicación de entrenamiento diseñada para llevar un <strong>control inteligente y preciso</strong> de tus rutinas de gym. Registra ejercicios, pesos, series, descansos y progreso de forma clara y eficiente.
           </p>
           <div className="hero-buttons slide-up-delay-2">
-            <button className="btn-primary glow">
-              <span>Comenzar Ahora</span>
+            <Link to="/login" className="btn-primary glow">
+              <span>Iniciar Sesión</span>
               <span className="arrow">→</span>
-            </button>
-            <button className="btn-secondary">
-              Ver Demo
-            </button>
+            </Link>
+            <Link to="/register" className="btn-secondary">
+              Registrarse
+            </Link>
           </div>
         </div>
         
@@ -106,12 +106,12 @@ function Home() {
         <div className="cta-content">
           <h2 className="cta-title">¿Listo para transformar tu entrenamiento?</h2>
           <p className="cta-description">
-            Comienza hoy y descubre cómo nuestra PWA puede ayudarte a alcanzar tus metas
+            Únete a quienes entrenan con constancia y quieren medir su evolución día a día
           </p>
-          <button className="btn-cta pulse-button">
-            <span>Únete Ahora</span>
+          <Link to="/login" className="btn-cta pulse-button">
+            <span>Iniciar Sesión</span>
             <span className="sparkle">✨</span>
-          </button>
+          </Link>
         </div>
       </section>
     </div>
