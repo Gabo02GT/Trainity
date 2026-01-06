@@ -8,10 +8,22 @@ function AddRoutineModal({ isOpen, onClose, onSave, editData = null }) {
     exercises: [{ name: '', sets: '', reps: '' }]
   });
 
-  const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  const days = [
+    { name: 'Lunes', emoji: '💪' },
+    { name: 'Martes', emoji: '🔥' },
+    { name: 'Miércoles', emoji: '⚡' },
+    { name: 'Jueves', emoji: '💯' },
+    { name: 'Viernes', emoji: '🎯' },
+    { name: 'Sábado', emoji: '🏋️' },
+    { name: 'Domingo', emoji: '🌟' }
+  ];
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDaySelect = (day) => {
+    setFormData({ ...formData, day });
   };
 
   const handleExerciseChange = (index, field, value) => {
@@ -49,87 +61,111 @@ function AddRoutineModal({ isOpen, onClose, onSave, editData = null }) {
 
         <form onSubmit={handleSubmit} className="routine-form">
           <div className="form-group">
-            <label>Nombre de la Rutina</label>
+            <label className="form-label-main">
+              <span className="label-icon">✏️</span>
+              Nombre de la Rutina
+            </label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Ej: Día de Pecho"
+              placeholder="Ej: Pecho y Tríceps"
+              className="input-main"
               required
             />
           </div>
 
           <div className="form-group">
-            <label>Día de la Semana</label>
-            <select name="day" value={formData.day} onChange={handleChange} required>
-              <option value="">Seleccionar día</option>
-              {days.map(day => (
-                <option key={day} value={day}>{day}</option>
+            <label className="form-label-main">
+              <span className="label-icon">📅</span>
+              Selecciona el Día
+            </label>
+            <div className="days-grid">
+              {days.map(({ name, emoji }) => (
+                <button
+                  key={name}
+                  type="button"
+                  className={`day-button ${formData.day === name ? 'selected' : ''}`}
+                  onClick={() => handleDaySelect(name)}
+                >
+                  <span className="day-emoji">{emoji}</span>
+                  <span className="day-name">{name}</span>
+                </button>
               ))}
-            </select>
+            </div>
           </div>
 
           <div className="exercises-section">
             <div className="exercises-header">
-              <h3>Ejercicios</h3>
+              <h3>
+                <span className="header-icon">💪</span>
+                Ejercicios
+              </h3>
               <button type="button" onClick={addExercise} className="add-exercise-btn">
-                + Agregar Ejercicio
+                <span>+</span> Agregar
               </button>
             </div>
 
-            {formData.exercises.map((exercise, index) => (
-              <div key={index} className="exercise-card">
-                <div className="exercise-header">
-                  <span className="exercise-number">#{index + 1}</span>
-                  {formData.exercises.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeExercise(index)}
-                      className="remove-exercise-btn"
-                    >
-                      🗑️
-                    </button>
-                  )}
-                </div>
-
-                <div className="form-group">
-                  <input
-                    type="text"
-                    value={exercise.name}
-                    onChange={(e) => handleExerciseChange(index, 'name', e.target.value)}
-                    placeholder="Nombre del ejercicio"
-                    required
-                  />
-                </div>
-
-                <div className="exercise-stats">
-                  <div className="stat-input">
-                    <label>Series</label>
-                    <input
-                      type="number"
-                      value={exercise.sets}
-                      onChange={(e) => handleExerciseChange(index, 'sets', e.target.value)}
-                      placeholder="3"
-                      required
-                      min="1"
-                    />
+            <div className="exercises-list-modal">
+              {formData.exercises.map((exercise, index) => (
+                <div key={index} className="exercise-card-modal">
+                  <div className="exercise-header-modal">
+                    <span className="exercise-badge">#{index + 1}</span>
+                    {formData.exercises.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => removeExercise(index)}
+                        className="remove-btn"
+                        title="Eliminar ejercicio"
+                      >
+                        ✕
+                      </button>
+                    )}
                   </div>
 
-                  <div className="stat-input">
-                    <label>Repeticiones</label>
-                    <input
-                      type="number"
-                      value={exercise.reps}
-                      onChange={(e) => handleExerciseChange(index, 'reps', e.target.value)}
-                      placeholder="12"
-                      required
-                      min="1"
-                    />
+                  <div className="exercise-inputs">
+                    <div className="input-full">
+                      <label>Nombre del Ejercicio</label>
+                      <input
+                        type="text"
+                        value={exercise.name}
+                        onChange={(e) => handleExerciseChange(index, 'name', e.target.value)}
+                        placeholder="Ej: Press de Banca"
+                        required
+                      />
+                    </div>
+
+                    <div className="input-row">
+                      <div className="input-half">
+                        <label>Series</label>
+                        <input
+                          type="number"
+                          value={exercise.sets}
+                          onChange={(e) => handleExerciseChange(index, 'sets', e.target.value)}
+                          placeholder="3"
+                          required
+                          min="1"
+                        />
+                      </div>
+
+                      <div className="input-half">
+                        <label>Repeticiones</label>
+                        <input
+                          type="number"
+                          value={exercise.reps}
+                          onChange={(e) => handleExerciseChange(index, 'reps', e.target.value)}
+                          placeholder="12"
+                          required
+                          min="1"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
           </div>
 
           <div className="modal-actions">
