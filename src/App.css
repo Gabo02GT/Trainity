@@ -4,6 +4,29 @@
   padding: 0;
   width: 100%;
   max-width: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Fondo animado */
+.home-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 60%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+  animation: floatBg 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes floatBg {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(50px, -50px); }
 }
 
 .home-header {
@@ -17,6 +40,26 @@
   backdrop-filter: blur(10px);
   flex-wrap: wrap;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
+  animation: slideDownIn 0.6s ease-out;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, #1a3a52, #2d5a7b, #7a8fa3) 1;
+}
+
+@keyframes slideDownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-section {
+  animation: slideInLeft 0.6s ease-out 0.1s both;
 }
 
 .user-section h1 {
@@ -24,6 +67,26 @@
   color: #1a3a52;
   font-size: 1.8rem;
   font-weight: 700;
+  background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease;
+}
+
+.user-section h1:hover {
+  transform: translateX(5px);
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .user-email {
@@ -31,6 +94,7 @@
   margin: 0;
   font-size: 0.95rem;
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .email-verified {
@@ -43,6 +107,19 @@
   margin-top: 0.5rem;
   font-weight: 600;
   border: 1px solid #6ee7b7;
+  animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .btn-logout {
@@ -53,18 +130,50 @@
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   font-size: 0.95rem;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  animation: slideInRight 0.6s ease-out 0.1s both;
+  box-shadow: 0 8px 20px rgba(26, 58, 82, 0.25);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.btn-logout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.4s ease;
+  z-index: -1;
 }
 
 .btn-logout:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(26, 58, 82, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(26, 58, 82, 0.35);
+  background: linear-gradient(135deg, #2d5a7b 0%, #1a3a52 100%);
+}
+
+.btn-logout:hover::before {
+  left: 100%;
 }
 
 .btn-logout:active {
-  transform: translateY(0);
+  transform: translateY(-1px);
 }
 
 #root {
@@ -80,10 +189,24 @@
 
 .container {
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .logo-section {
   margin-bottom: 2rem;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .app-logo {
@@ -93,23 +216,61 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
   object-fit: cover;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: zoomIn 0.6s ease-out 0.1s both;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotateY(-30deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotateY(0);
+  }
+}
+
+.app-logo:hover {
+  transform: scale(1.15) rotateZ(-8deg);
+  box-shadow: 0 12px 30px rgba(26, 58, 82, 0.3);
+  filter: brightness(1.1);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
   margin: 0;
-  background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 40%, #e0e0e0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 700;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+  text-shadow: 0 4px 20px rgba(26, 58, 82, 0.2);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1:hover {
+  filter: drop-shadow(0 8px 20px rgba(255, 255, 255, 0.3));
 }
 
 h2 {
   font-size: 2rem;
   color: white;
   margin: 0;
+  animation: fadeInUp 0.6s ease-out 0.3s both;
 }
 
 h3 {
@@ -117,36 +278,100 @@ h3 {
 }
 
 .pwa-message {
-  background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+  background: linear-gradient(135deg, rgba(26, 58, 82, 0.9) 0%, rgba(45, 90, 123, 0.85) 100%);
   color: white;
   padding: 2rem;
   border-radius: 15px;
   margin: 2rem 0;
   box-shadow: 0 8px 24px rgba(26, 58, 82, 0.25);
+  animation: slideInUp 0.6s ease-out 0.4s both;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pwa-message::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .pwa-message h2 {
   font-size: 2rem;
   margin: 0 0 1rem 0;
   font-weight: bold;
+  position: relative;
+  z-index: 1;
 }
 
 .pwa-message h3 {
   margin: 0 0 1rem 0;
   font-weight: bold;
+  position: relative;
+  z-index: 1;
 }
 
 .pwa-message p {
   font-size: 1.1rem;
   margin: 0.5rem 0;
+  position: relative;
+  z-index: 1;
+  line-height: 1.6;
 }
 
 .card {
   padding: 2em;
   border-radius: 12px;
-  background: #f5f5f5;
+  background: rgba(255, 255, 255, 0.95);
   margin-top: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 0.6s ease-out 0.5s both;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transition: left 0.5s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(26, 58, 82, 0.15);
+}
+
+.card:hover::before {
+  left: 100%;
 }
 
 button {
@@ -158,19 +383,39 @@ button {
   font-family: inherit;
   background-color: #1a3a52;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
 }
 
 button:hover {
   background-color: #2d5a7b;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(26, 58, 82, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(26, 58, 82, 0.3);
+}
+
+button:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 button:active {
   opacity: 0.9;
-  transform: translateY(0);
+  transform: translateY(-1px);
 }
 
 /* ===== DESKTOP (1280px+) ===== */
